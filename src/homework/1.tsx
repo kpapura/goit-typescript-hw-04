@@ -5,20 +5,16 @@ interface Props {
   onContentEndVisible: () => void;
 }
 
-class Options {
-  constructor(
-    public rootMargin: string,
-    public threshold: number,
-    public root: HTMLElement | null
-  ) {}
-}
-
 export function Observer({ children, onContentEndVisible }: Props) {
   const endContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const options: Options = new Options("0px", 1.0, null);
-
+  const options: IntersectionObserverInit = {
+    rootMargin: '0px',
+    threshold: 1.0,
+    root: null,
+    }; 
+    
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.intersectionRatio > 0) {
